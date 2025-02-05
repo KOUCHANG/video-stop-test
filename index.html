@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PiP 動作テスト</title>
+</head>
+<body>
+    <h2>PiPテスト</h2>
+    <video id="myVideo" width="600" controls playsinline>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <br>
+    <button onclick="enterPiP()">PiP にする</button>
+    <button onclick="clearSrc()">src = '' にする</button>
+    <button onclick="removeVideo()">video.remove() を実行</button>
+    <br>
+    <button onclick="delayedEnterPiP()">PiP にする (5秒後)</button>
+    <button onclick="delayedClearSrc()">src = '' にする (5秒後)</button>
+    <button onclick="delayedRemoveVideo()">video.remove() を実行 (5秒後)</button>
+    <script>
+        const video = document.getElementById('myVideo');
+        function delayedEnterPiP() {
+            setTimeout(() => {
+                if (document.pictureInPictureEnabled && !document.pictureInPictureElement) {
+                    video.requestPictureInPicture().catch(console.error);
+                }
+                console.log("PiP にしました");
+            }, 5000); // 5秒後に実行
+        }
+        function delayedClearSrc() {
+            setTimeout(() => {
+                video.src = '';
+                video.load();
+                console.log("srcをクリアしました");
+            }, 5000); // 5秒後に実行
+        }
+        function delayedRemoveVideo() {
+            setTimeout(() => {
+                if (video) {
+                    video.remove();
+                    console.log("video要素を削除しました");
+                }
+            }, 5000); // 5秒後に実行
+        }
+        function enterPiP() {
+            if (document.pictureInPictureEnabled && !document.pictureInPictureElement) {
+                video.requestPictureInPicture().catch(console.error);
+            }
+        }
+
+        function clearSrc() {
+            video.src = '';
+            video.load();
+            console.log("srcをクリアしました");
+        }
+
+        function removeVideo() {
+            if (video) {
+                video.remove();
+                console.log("video要素を削除しました");
+            }
+        }
+    </script>
+</body>
+</html>
